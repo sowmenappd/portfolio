@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider             = "mysql"
+  provider             = "mongodb"
   url                  = env("DATABASE_URL")
   shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
@@ -14,7 +14,7 @@ generator client {
 }
 
 model Post {
-  id        String   @id @default(cuid())
+  id        String   @id @default(cuid()) @map("_id")
   createdAt DateTime @default(now())
   slug      String   @unique
   likes     Int      @default(0)
@@ -22,7 +22,7 @@ model Post {
 }
 
 model Session {
-  id        String   @id
+  id        String   @id @map("_id")
   createdAt DateTime @default(now())
   likes     Int      @default(0)
 }
