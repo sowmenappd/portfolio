@@ -54,7 +54,7 @@ export const getStaticProps: GetStaticProps<{
     ...allProjects.map(formatProjectPreview),
     ...allPosts.filter((p) => p.status === "published").map(formatPostPreview),
   ].sort(
-    (a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)),
+    (a, b) => Number(new Date(b.publishedAt!)) - Number(new Date(a.publishedAt!)),
   )
 
   let currentFilters: CurrentFilters = null
