@@ -9,11 +9,11 @@ export default function Document() {
         <link
           rel="preload"
           as="image"
-          href="https://res.cloudinary.com/delba/image/upload/h_500/bg_gradient_pfosr9"
+          href="https://res.cloudinary.com/dpttbgftr/image/upload/v1687949338/gradient.jpg"
         />
       </Head>
 
-      <body className="bg-gray-900 antialiased selection:bg-purple-500/90 selection:text-white">
+      <body className="bg-gradient-to-r from-indigo-900 to-indigo-800 antialiased selection:bg-purple-500/90 selection:text-white">
         <Main />
         <NextScript />
       </body>

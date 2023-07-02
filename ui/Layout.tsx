@@ -14,12 +14,9 @@ const GradientBackground = () => {
 
   return (
     <>
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0">
         <div
-          className="h-full bg-[url('https://res.cloudinary.com/delba/image/upload/h_500/bg_gradient_pfosr9')] bg-top bg-no-repeat opacity-[0.3] will-change-transform"
-          style={{
-            transform: `translateY(${Math.min(y / 3, 167)}px)`,
-          }}
+          className="fixed w-screen h-screen static bg-[url('https://res.cloudinary.com/dpttbgftr/image/upload/v1687949338/gradient.jpg')]  opacity-[0.3]"
         ></div>
       </div>
     </>
@@ -75,7 +72,7 @@ export const Layout = ({
                 title="View home page"
                 className={cx("rounded-full", FOCUS_VISIBLE_OUTLINE)}
               >
-                <ProfileImage size="small" isInteractive />
+                <ProfileImage size="small" isInteractive src="https://github.com/sowmenappd.png" />
               </Link>
             </div>
             <Navigation currentFilters={currentFilters} />

@@ -3,9 +3,9 @@ import { useVideoMetrics } from "@/lib/useVideoMetrics"
 import { ContentLink } from "@/ui/ContentLink"
 import { InlineMetric } from "@/ui/InlineMetric"
 import { LoadingDots } from "@/ui/LoadingDots"
-import YoutubeIcon from "@/ui/YoutubeIcon"
-import { Video } from "contentlayer/generated"
+import { Project } from "contentlayer/generated"
 import React from "react"
+import OpenLinkIcon from "./OpenLinkIcon"
 
 const Metrics = ({
   id,
@@ -45,42 +45,34 @@ const Metrics = ({
   )
 }
 
-export const VideoPostPreview = (
-  post: Pick<Video, "title" | "description" | "youtube" | "tags">,
+export const ProjectPostPreview = (
+  post: Pick<Project, "slug" | "title" | "description" | "tags" | "url">,
 ) => {
-  const { enabled, intersectionRef } = useEnabledOnFirstIntersection()
+  const { intersectionRef } = useEnabledOnFirstIntersection()
 
   return (
     <div ref={intersectionRef}>
-      <ContentLink href={post.youtube.url}>
-        <div className="flex justify-between">
+      <ContentLink href={`/projects/${post.slug}`}>
+        <div className="flex justify-between pointer-events-none">
           <ContentLink.Title>{post.title}</ContentLink.Title>
-          <ContentLink.Icon icon={YoutubeIcon} />
-        </div>
-
-        <ContentLink.Meta>
-          <div>{post.youtube.publishedAtFormatted}</div>
-
-          {post.tags && post.tags.length > 0 ? (
-            <>
-              <div className="text-rose-100/30">&middot;</div>
-
-              <div>{post.tags[0].title}</div>
-            </>
-          ) : null}
-
-          <div className="text-rose-100/30">&middot;</div>
-
-          <div>{post.youtube.duration}</div>
-
-          {enabled ? (
-            <Metrics
-              id={post.youtube.id}
-              fallbackData={{
-                views: post.youtube.views,
-                likes: post.youtube.likes,
+          <ContentLink.Icon icon={
+            () => <OpenLinkIcon 
+              className="pointer-events-auto hover:text-sky-400 w-[22px] transform text-rose-100 transition delay-100 duration-500 ease-out group-hover:scale-110" 
+              onClick={(e) => { 
+                e.preventDefault(); 
+                window.open(`https://${post.url}`, "_blank"); 
               }}
             />
+          } />
+        </div>
+
+        <ContentLink.Meta>          
+          {post.tags && post.tags.length > 0 ? (
+            post.tags.slice(0, 3).map((tag: { title: string }) => 
+            (<>
+              <div>{`# ${tag.title.toLowerCase()} `}</div>
+            </>)
+            )
           ) : null}
         </ContentLink.Meta>
 

@@ -1,18 +1,20 @@
 import { pick } from "contentlayer/client"
-import { Post, Video } from "contentlayer/generated"
+import { Post, Project } from "contentlayer/generated"
 
 export const allTagNames = ["Next.js", "MDX", "Next Conf", "React Conf"]
 export const allTagSlugs = ["next", "mdx", "next-conf", "react-conf"]
 
-export const formatVideoPreview = (video: Video) => {
-  const partialVideo = pick(video, ["title", "description", "youtube", "tags"])
+export const formatProjectPreview = (project: Project) => {
+  const partialProject = pick(project, ["title", "description", "publishedAt", "tags", "slug", "url", "github"])
 
   return {
-    ...partialVideo,
-    title: partialVideo.title || partialVideo.youtube.title,
-    type: video.type,
-    publishedAt: partialVideo.youtube.publishedAt,
-    tags: partialVideo.tags || [],
+    ...partialProject,
+    title: partialProject.title,
+    type: project.type,
+    publishedAt: partialProject.publishedAt,
+    tags: partialProject.tags || [],
+    url: project.url,
+    slug: project.slug
   }
 }
 
@@ -121,4 +123,31 @@ export const getPartialPost = (
           }),
       }
     : null,
+})
+
+export const getPartialProject = (
+  {
+    title,
+    slug,
+    publishedAt,
+    description,
+    body,
+    headings,
+    url,
+    tech,
+    github
+  }: Project
+) => ({
+  title,
+  slug,
+  publishedAtFormatted: publishedAt,
+  description: description ?? null,
+  body: {
+    code: body.code,
+  },
+  headings:
+    (headings as { heading: number; text: string; slug: string }[]) ?? null,
+  url,
+  tech: tech?.split(',').map((t: string) => t.trim()),
+  github
 })

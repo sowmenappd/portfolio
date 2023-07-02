@@ -10,10 +10,10 @@ export const Footer = () => {
           <div className="flex space-x-5">
             <div>
               <Link
-                href="/videos"
+                href="/projects"
                 className={cx(LINK_SUBTLE_STYLES, FOCUS_VISIBLE_OUTLINE)}
               >
-                Videos
+                Projects
               </Link>
             </div>
 
@@ -22,27 +22,21 @@ export const Footer = () => {
                 href="/blog"
                 className={cx(LINK_SUBTLE_STYLES, FOCUS_VISIBLE_OUTLINE)}
               >
-                Posts
+                Blog
               </Link>
             </div>
 
             <a
-              href="https://twitter.com/delba_oliveira"
-              className={cx(LINK_SUBTLE_STYLES, FOCUS_VISIBLE_OUTLINE)}
-            >
-              Twitter
-            </a>
-            <a
-              href="https://www.youtube.com/delba"
-              className={cx(LINK_SUBTLE_STYLES, FOCUS_VISIBLE_OUTLINE)}
-            >
-              YouTube
-            </a>
-            <a
-              href="https://github.com/delbaoliveira"
+              href="https://github.com/sowmenappd"
               className={cx(LINK_SUBTLE_STYLES, FOCUS_VISIBLE_OUTLINE)}
             >
               GitHub
+            </a>
+            <a
+              href="https://twitter.com/SowmenR"
+              className={cx(LINK_SUBTLE_STYLES, FOCUS_VISIBLE_OUTLINE)}
+            >
+              Twitter
             </a>
           </div>
         </div>

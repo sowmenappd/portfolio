@@ -1,6 +1,6 @@
 import { Tag } from "contentlayer/generated"
 
 export type CurrentFilters = {
-  type?: "videos" | "blog"
+  type?: "project" | "blog"
   tag?: Tag["slug"]
 } | null

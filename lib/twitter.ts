@@ -288,7 +288,7 @@ export const getTweets = async (ids: string[]) => {
   ).then((x) => x.json())
 
   let tweets: FormattedTweet[] = []
-
+  if (!api?.data) return [];
   for (const tweet of api.data) {
     const formattedTweet = formatTweet(api.includes, tweet)
     const referencedTweets = getReferencedTweets(api.includes, tweet)

@@ -10,10 +10,16 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
+        pathname: "/dpttbgftr/**",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
         pathname: "/delba/**",
       },
       { hostname: "api.microlink.io" },
       { hostname: "pbs.twimg.com" },
+      { hostname: "github.com" }
     ],
   },
 

@@ -3,9 +3,11 @@ import Image from "next/image"
 
 export const ProfileImage = ({
   size = "large",
+  src = '',
   isInteractive,
 }: {
   size: "small" | "large"
+  src: string | undefined
   isInteractive?: boolean
 }) => {
   return (
@@ -29,8 +31,8 @@ export const ProfileImage = ({
         })}
       >
         <Image
-          src="https://res.cloudinary.com/delba/image/twitter_name/c_thumb,g_face,h_380,w_380,q_100/delba_oliveira.jpg"
-          alt="A photo of Delba"
+          src = {src}
+          alt="A photo of Sowmen"
           quality={95}
           priority={true}
           className="rounded-full"

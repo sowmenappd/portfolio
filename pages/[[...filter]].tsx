@@ -1,7 +1,7 @@
 import {
   allTagSlugs,
   formatPostPreview,
-  formatVideoPreview,
+  formatProjectPreview,
 } from "@/lib/contentlayer"
 import { seo } from "@/lib/seo"
 import { CurrentFilters } from "@/lib/types"
@@ -9,10 +9,9 @@ import { BlogPostPreview } from "@/ui/BlogPostPreview"
 import { Layout } from "@/ui/Layout"
 import { Navigation } from "@/ui/Navigation"
 import { ProfileImage } from "@/ui/ProfileImage"
-import { VideoPostPreview } from "@/ui/VideoPostPreview"
-import YoutubeIcon from "@/ui/YoutubeIcon"
+import { ProjectPostPreview } from "@/ui/ProjectPostPreview"
 import cx from "clsx"
-import { allPosts, allVideos, Tag } from "contentlayer/generated"
+import { allPosts, allProjects, Tag } from "contentlayer/generated"
 import type { GetStaticProps, InferGetStaticPropsType } from "next"
 import { NextSeo } from "next-seo"
 import React from "react"
@@ -22,15 +21,17 @@ export const getStaticPaths = () => {
   const paths = [
     // /
     { params: { filter: [] } },
-    // /videos
-    { params: { filter: ["videos"] } },
+    // /projects
+    { params: { filter: ["projects"] } },
     // /blog
     { params: { filter: ["blog"] } },
+    // /me
+    { params: { filter: ["me"] } },
     // /tag/:tag
     ...allTagSlugs.map((tag) => ({ params: { filter: ["tag", tag] } })),
     // /videos/tag/:tag
     ...allTagSlugs.map((tag) => ({
-      params: { filter: ["videos", "tag", tag] },
+      params: { filter: ["projects", "tag", tag] },
     })),
     // /blog/tag/:tag
     ...allTagSlugs.map((tag) => ({ params: { filter: ["blog", "tag", tag] } })),
@@ -45,12 +46,12 @@ export const getStaticPaths = () => {
 export const getStaticProps: GetStaticProps<{
   currentFilters: CurrentFilters
   posts: (
-    | ReturnType<typeof formatVideoPreview>
+    | ReturnType<typeof formatProjectPreview>
     | ReturnType<typeof formatPostPreview>
   )[]
 }> = async ({ params }) => {
   let posts = [
-    ...allVideos.map(formatVideoPreview),
+    ...allProjects.map(formatProjectPreview),
     ...allPosts.filter((p) => p.status === "published").map(formatPostPreview),
   ].sort(
     (a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)),
@@ -63,10 +64,10 @@ export const getStaticProps: GetStaticProps<{
 
     let tag: Tag["slug"] | undefined
 
-    if (params.filter[0] === "videos") {
-      posts = posts.filter((p) => p.type === "Video")
+    if (params.filter[0] === "projects") {
+      posts = posts.filter((p) => p.type === "Project")
 
-      currentFilters.type = "videos"
+      currentFilters.type = "project"
 
       if (params.filter[1] === "tag" && params.filter[2]) {
         tag = params.filter[2] as Tag["slug"]
@@ -84,7 +85,7 @@ export const getStaticProps: GetStaticProps<{
 
     if (tag) {
       currentFilters.tag = tag
-      posts = posts.filter((p) => p.tags.find((x) => x.slug === tag))
+      posts = posts.filter((p) => p.tags.find((x: any) => x.slug === tag))
     }
   }
 
@@ -110,7 +111,7 @@ export default function Home({
     <>
       {currentFilters ? <NextSeo noindex={true} /> : null}
       <Layout showNav={showNav} currentFilters={currentFilters}>
-        <div className="-mt-12 sm:mt-0">
+        <div className="-mt-8 sm:mt-0">
           <div ref={intersectionRef}>
             {!currentFilters ? (
               <div
@@ -120,30 +121,25 @@ export default function Home({
                 })}
               >
                 <div className="flex items-center space-x-6">
-                  <ProfileImage size="large" />
+                  <ProfileImage size="large" src="https://github.com/sowmenappd.png" />
 
                   <div>
                     <h1 className="text-3xl font-medium text-rose-100/80 sm:text-4xl">
-                      Delba
+                      Sowmen
                     </h1>
                     <h2 className="align-middle text-lg leading-6 text-rose-100/50">
                       <span className="hidden sm:inline">
-                        Developer Experience
+                        Backend Engineering
                       </span>
                       <span
                         className="inline sm:hidden"
-                        title="Developer Experience"
+                        title="Backend Engineer"
                       >
-                        DX
+                        BE
                       </span>{" "}
                       at{" "}
                       <span className="font-medium text-rose-100/70">
-                        <span className="mr-px align-middle">
-                          <span className="-my-2 inline-block text-[24px]">
-                            ▲
-                          </span>
-                        </span>
-                        Vercel
+                        <a target="_blank" href="https://nissispace.com">NissiSpace</a>
                       </span>
                     </h2>
                   </div>
@@ -175,27 +171,12 @@ export default function Home({
                     </div>
                   ) : null}
                 </div>
-
-                {currentFilters.type === "videos" ? (
-                  <div className="flex">
-                    <a
-                      href="https://youtube.com/playlist?list=PLo9a4XFa98CBynQ0HE_UstByk_-KXg6eU"
-                      className="group flex items-center space-x-2"
-                    >
-                      <span className="text-lg text-rose-100/40 transition-colors group-hover:text-rose-100/80">
-                        YouTube Playlist
-                      </span>
-
-                      <YoutubeIcon className="w-5 text-rose-100/20 shadow-md transition-colors group-hover:text-red-500/70" />
-                    </a>
-                  </div>
-                ) : null}
               </>
             ) : null}
 
             {posts.map((post) => {
-              if (post.type === "Video") {
-                return <VideoPostPreview key={post.youtube.id} {...post} />
+              if (post.type === "Project") {
+                return <ProjectPostPreview key={post.title} {...post} />
               }
 
               if (post.type === "Post") {
