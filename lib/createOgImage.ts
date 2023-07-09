@@ -10,7 +10,7 @@ export const createOgImage = ({
 }) =>
   [
     // ACCOUNT PREFIX
-    `https://res.cloudinary.com/dpttbgftr/image/upload/v1688918876/311165083_3167988880119112_4317971620273223025_n_c7inq7.png`,
+    `https://res.cloudinary.com/dpttbgftr/image/upload`,
     // Composed Image Transformations
     `w_1600,h_836,q_100`,
 
@@ -28,12 +28,12 @@ export const createOgImage = ({
 
     // PROFILE IMAGE
     // dynamically fetched from my twitter profile
-    `l_twitter_name:delba_oliveira`,
+    `l_twitter_name:s0wmen`,
     // Transformations
     `c_thumb,g_face,r_max,w_380,h_380,q_100`,
     // Positioning
     `fl_layer_apply,w_140,g_north_west,x_100,y_100`,
 
     // BG
-    `grain-gradient.png`,
+    `bg.png`,
   ].join("/")
