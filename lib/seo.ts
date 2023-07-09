@@ -4,7 +4,7 @@ import type { DefaultSeoProps } from "next-seo"
 const title = `Sowmen`
 const description = `Welcome to my space! I generally share articles about my backend adventures, alongside learning about new backend technologies and shipping products with scalability built-in.`
 const domain = `sowmenrahman.com`
-const twitter = `@SowmenR`
+const twitter = `@s0wmen`
 const meta = `Backend Engineer`
 
 export const seo: DefaultSeoProps = {
