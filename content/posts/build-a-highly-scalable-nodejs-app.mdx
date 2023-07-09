@@ -67,7 +67,7 @@ This will help us speed the process through. The hierarchical view of the repo i
 
 The **app** folder contains the node server source code along with the Dockerfile. In the **nginx** folder, there is a configuration file **nginx.conf** that defines the upstream server port configuration:
 
-```
+```ts
 http{
     upstream lb {
         server 172.17.0.1:1000 weight=1;
