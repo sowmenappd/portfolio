@@ -1,0 +1,27 @@
+---
+title: "Note to junior developers: Getting ahead of yourselves"
+description: "Balancing your morale with the pace of learning & practicing software development."
+publishedAt: "2024-05-01"
+category: "Software, Engineering"
+status: "published"
+---
+
+![Image](/note-to-devs-getting-ahead-of-yourself/cover.jpg)
+
+Recently I’ve noticed a lot of talks around justifying software code refactoring and injecting design practices wherever possible to the hundredth degree. At the same time, I’ve also seen conversations on how as a backend engineer, it’s absolutely 💯% your responsibility to also learn the best tools and frameworks to make sure your backend is scalable and fault-tolerant. Interestingly enough, these talks never seem to consider the other aspect as a skill and neither is there any mention about balancing these both at all.
+
+Personally, I can’t justify trying to master both at the same time because it’s exhausting and would definitely require many sacrifices and ultimately cause a ravaging technical debt. Junior devs who work at small companies with limited engineering resources often get exposure to the idea that they have to master both swiftly and end up losing their morale in the process. To you junior devs: 
+
+1. Don’t complicate your software design. Compartmentalize contexts and dependencies only when something raises a concern. 
+
+2. Try keeping your class hierarchies simple and don’t do too many hierarchy levels. 
+
+3. Only do dependency injection on the infrastructure and business level, stick to concrete implementation for adapters, keep functional arguments to a minimum.
+
+4. Start out small with devops tools, learn networking and linux ops first. 
+
+5. Don’t feel that you have to deploy your monolithic API service to docker or k8s the moment you’ve learnt what the technology does. CI/CD is a vast sea of knowledge and a redundant deployment design can slow down deployment flows hampering software rollouts. 
+
+<Playground >
+### Follow your conscience with a pinch of Occam’s Razor. Simplicity will always win, until it’s no longer an option.
+</Playground>
