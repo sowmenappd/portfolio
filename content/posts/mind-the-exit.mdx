@@ -1,0 +1,50 @@
+---
+title: "Mind the Exit"
+description: "A lesson in fan-out, exits, and avoiding bottlenecks—from subways to software."
+publishedAt: "2025-08-30"
+status: "published"
+---
+
+The other day, on my commute back from work, I noticed something curious about Sydney’s underground metro stations. Each time I left a platform, I couldn’t help but see that there were always more elevators or escalators leading **out** of the platform than there were leading **in**.
+
+[<img src="/mind-the-exit/escalators.jpg" margin="auto" width="450px"/>](/mind-the-exit/escalators.jpg)
+
+At first, it felt like a minor detail of station design—surely just city planning. But the more I thought about it, the more it started to feel like a metaphor for something I work with every day: distributed systems in fin-tech.
+
+## Exits and Entries in Underground Stations  
+
+If you think about it, having more exits than entries makes sense. Once a train arrives, a large number of people need to **disperse quickly** into the city. Bottlenecks here would cause frustration, crowding, even safety hazards. By contrast, passengers arriving at the station typically trickle in at a slower, more distributed pace. So the system is optimized for the **burst load on exits**, not symmetry.  
+
+This design principle is subtle, but it acknowledges a simple truth: **input and output flows rarely match**.  
+
+## Input vs. Output in Distributed Systems  
+
+The same truth plays out in distributed systems such as fin-tech applications, especially in payroll integrations, which happens to be my daily playground.
+
+- **Entries (ingress):** Data often enters the system in controlled, limited channels—say, a few HRM platforms sending structured employee and payroll data. The ingestion layer is typically well-defined and slower-paced.  
+- **Exits (egress):** But once data is inside, it not only has to **fan out** into multiple downstream systems-payroll systems, tax authorities, reporting dashboards, and auditing systems-but the **handling system itself** often needs to communicate with other services for validation, orchestration, or reconciliation. Just like commuters leaving a train, outputs need room to move, and the “middleman” systems need clear paths too, or everything gets stuck.
+
+<b><u>In other words: many more exits than entries.</u></b>
+
+## Why the Imbalance Matters
+
+Much like underground station design, engineering for distributed systems means recognising that imbalance is not only natural but necessary.
+
+- **Throughput vs. Latency:** You want ingestion (entries) to be stable and resilient, but egress (exits) to be high-throughput and parallelised.
+- **Fan-out patterns:** In distributed systems, fan-out is a given. A single payroll record might spawn events across dozens of services. Designing for efficient, reliable exits prevents downstream congestion.  
+- **Safety and trust:** Just like passengers shouldn’t be stuck underground, financial data mustn’t get bottlenecked inside a system. In finance, delays aren’t just inconvenient—they erode trust and may cause compliance failures.  
+
+## Lessons for Engineers  
+
+When I see more exits than entries in a metro station, I see a distributed systems pattern every software engineer should keep in mind:
+
+- Don’t expect symmetry between ingress and egress.
+- Design for bursts on the output side.
+- Build multiple independent “exits” (APIs, event streams, async queues) so that downstream systems aren’t forced into a single bottleneck. But since use-cases can vary, so will the motivation behind architecture.
+- Always optimise for the moment of *fan-out*, not just the moment of *ingestion*.
+
+## Closing Thought  
+
+City planners don’t just design for how people enter stations—they design for how crowds leave safely and efficiently. As engineers in distributed systems, especially in finance tech, we should do the same: design architectures with more exits than entries.  
+
+Sometimes, the best software architecture lessons come not from textbooks, but from the everyday systems we move through—like a metro ride home.  
