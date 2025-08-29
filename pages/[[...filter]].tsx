@@ -125,21 +125,21 @@ export default function Home({
 
                   <div>
                     <h1 className="text-3xl font-medium text-rose-100/80 sm:text-4xl">
-                      Sowmen
+                      Sowmen Rahman
                     </h1>
                     <h2 className="align-middle text-lg leading-6 text-rose-100/50">
                       <span className="hidden sm:inline">
-                        Backend Engineering
+                        Engineering
                       </span>
                       <span
                         className="inline sm:hidden"
-                        title="Backend Engineer"
+                        title="Senior Software Engineer"
                       >
-                        BE
+                        RnD
                       </span>{" "}
                       at{" "}
                       <span className="font-medium text-rose-100/70">
-                        <a target="_blank" href="https://nissispace.com">NissiSpace</a>
+                        <a target="_blank" href="https://elmosoftware.com.au/">ELMO Software</a>
                       </span>
                     </h2>
                   </div>
