@@ -26,3 +26,12 @@ model Session {
   createdAt DateTime @default(now())
   likes     Int      @default(0)
 }
+
+model Comment {
+  id        String   @id @default(cuid()) @map("_id")
+  postSlug  String
+  content   String
+  author    String
+  visible   Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

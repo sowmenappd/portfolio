@@ -4,6 +4,7 @@ import { FormattedTweet, getTweets } from "@/lib/twitter"
 import { Layout } from "@/ui/Layout"
 import { LikeButton2 } from "@/ui/LikeButton2"
 import { components } from "@/ui/MdxComponents"
+import { CommentSection } from "@/ui/CommentSection"
 import { PostMetrics } from "@/ui/PostMetrics"
 import { PostSeries } from "@/ui/PostSeries"
 import { Tweet } from "@/ui/Tweet"
@@ -164,6 +165,7 @@ export default function PostPage({
 
         <div className="mt-16">
           <LikeButton2 slug={post.slug} />
+          <CommentSection slug={post.slug} />
         </div>
         {post.series && post.series.posts.length > 1 ? (
           <div className="mt-16">

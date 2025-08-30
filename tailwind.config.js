@@ -18,7 +18,20 @@ module.exports = {
       colors: {
         gray: colors.stone,
       },
+      animation: {
+        slideDown: "slideDown 0.2s ease-out",
+      },
       keyframes: ({ theme }) => ({
+        slideDown: {
+          from: {
+            opacity: "0",
+            transform: "translateY(-10px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
         mutation: {
           "0%": {
             background: theme("colors.rose.200 / 3%"),
