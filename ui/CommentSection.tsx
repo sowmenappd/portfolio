@@ -16,7 +16,7 @@ export const CommentSection = ({ slug }: { slug: string }) => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [author, setAuthor] = React.useState("")
   const [content, setContent] = React.useState("")
-  const [isModalOpen, setIsModalOpen] = React.useState(true)
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   React.useEffect(() => {
     fetchComments()
