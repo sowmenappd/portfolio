@@ -7,22 +7,13 @@ import { Transition } from "@headlessui/react"
 import cx from "clsx"
 import Link from "next/link"
 import React from "react"
-import { useWindowScroll } from "react-use"
 
-const GradientBackground = () => {
-  const { y } = useWindowScroll()
-
-  return (
-    <>
-      <div className="pointer-events-none absolute inset-0">
-        <div
-          className="fixed w-screen h-screen static bg-[url('https://res.cloudinary.com/dpttbgftr/image/upload/v1687949338/gradient.jpg')]  opacity-[0.3]"
-        ></div>
-      </div>
-    </>
-  )
-}
-
+/**
+ * Direction 1a — Layout on tokens.
+ * The page background + ambient gradient now live in styles/globals.css
+ * (body + body::before), so the hotlinked Cloudinary GradientBackground is
+ * gone. The grain overlay is kept as an identity texture.
+ */
 export const Layout = ({
   children,
   showNav = true,
@@ -35,11 +26,11 @@ export const Layout = ({
   return (
     <>
       <svg
-        className="pointer-events-none fixed isolate z-50 opacity-70 mix-blend-soft-light"
+        className="pointer-events-none fixed isolate z-50 opacity-60 mix-blend-soft-light"
         width="100%"
         height="100%"
       >
-        <filter id="pedroduarteisalegend">
+        <filter id="grain">
           <feTurbulence
             type="fractalNoise"
             baseFrequency="0.80"
@@ -47,18 +38,14 @@ export const Layout = ({
             stitchTiles="stitch"
           />
         </filter>
-        <rect
-          width="100%"
-          height="100%"
-          filter="url(#pedroduarteisalegend)"
-        ></rect>
+        <rect width="100%" height="100%" filter="url(#grain)"></rect>
       </svg>
 
       <div className="pointer-events-none fixed top-6 z-30 grid w-full grid-cols-[1fr,min(640px,100%),1fr] px-4">
         <Transition
-          className="pointer-events-auto col-start-2 -mx-px rounded-2xl bg-gray-800/95 px-4 py-2.5 shadow-surface-glass backdrop-blur will-change-transform [@supports(backdrop-filter:blur(0px))]:bg-white/[3%]"
+          className="pointer-events-auto col-start-2 -mx-px rounded-2xl border border-border/[0.07] bg-surface-overlay/80 px-4 py-2.5 shadow-surface-glass backdrop-blur will-change-transform [@supports(backdrop-filter:blur(0px))]:bg-border/[0.04]"
           show={showNav}
-          enter="transition duration-100 ease-in-out"
+          enter="transition duration-fast ease-in-out"
           enterFrom="opacity-0 scale-90"
           enterTo="opacity-100 scale-100"
           leave="transition ease-in-out"
@@ -80,13 +67,11 @@ export const Layout = ({
         </Transition>
       </div>
 
-      <div className="relative z-10 grid grid-cols-[1fr,min(640px,100%),1fr] gap-y-8 px-4 pt-48 font-sans text-base text-rose-100/90 xl:grid-cols-[1fr,minmax(auto,240px),min(640px,100%),minmax(auto,240px),1fr] xl:gap-x-9 xl:px-0 [&>*]:col-start-2 xl:[&>*]:col-start-3">
+      <div className="relative z-10 grid grid-cols-[1fr,min(640px,100%),1fr] gap-y-8 px-4 pt-48 font-sans text-body text-ink-primary xl:grid-cols-[1fr,minmax(auto,240px),min(640px,100%),minmax(auto,240px),1fr] xl:gap-x-9 xl:px-0 [&>*]:col-start-2 xl:[&>*]:col-start-3">
         {children}
 
         <Footer />
       </div>
-
-      <GradientBackground />
     </>
   )
 }

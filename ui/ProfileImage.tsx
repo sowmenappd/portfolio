@@ -1,9 +1,15 @@
 import cx from "clsx"
 import Image from "next/image"
 
+/**
+ * Direction 1a — ProfileImage refactored onto tokens.
+ * Old: from-purple-700/60 to-rose-400/60 ring, ring-purple-500/10.
+ * New: accent.cool → accent.warm gradient ring (the identity pair),
+ *      surface.raised inner, ink-tinted hover glow.
+ */
 export const ProfileImage = ({
   size = "large",
-  src = '',
+  src = "",
   isInteractive,
 }: {
   size: "small" | "large"
@@ -13,25 +19,25 @@ export const ProfileImage = ({
   return (
     <div
       className={cx(
-        "rounded-full bg-gradient-to-tl from-purple-700/60 to-rose-400/60 shadow-lg",
+        "rounded-full bg-gradient-to-tl from-accent-cool to-accent-warm shadow-lg",
         {
           "p-[2px]": size === "small",
           "p-[3px]": size === "large",
-          "group transform transition ease-out hover:scale-105 hover:from-purple-700 hover:to-rose-400 hover:shadow-rose-500/25 active:translate-y-px":
+          "group transform transition duration-base ease-out hover:scale-105 hover:shadow-accent-warm/25 active:translate-y-px":
             isInteractive,
-          "ring-[5px] ring-purple-500/10": !isInteractive,
+          "ring-[5px] ring-accent-cool/10": !isInteractive,
         },
       )}
     >
       <div
-        className={cx("rounded-full p-px", {
+        className={cx("rounded-full bg-surface-raised p-px", {
           "h-[36px] w-[36px]": size === "small",
           "h-[64px] w-[64px]": size === "large",
-          "transition duration-300 group-hover:scale-105": isInteractive,
+          "transition duration-base group-hover:scale-105": isInteractive,
         })}
       >
         <Image
-          src = {src}
+          src={src}
           alt="A photo of Sowmen"
           quality={95}
           priority={true}

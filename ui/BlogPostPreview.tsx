@@ -6,22 +6,17 @@ import { ContentLink } from "@/ui/ContentLink"
 import { InlineMetric } from "@/ui/InlineMetric"
 import { LoadingDots } from "@/ui/LoadingDots"
 
+const Dot = () => <div className="text-ink-muted">&middot;</div>
+
 const Metrics = ({ slug }: { slug: string }) => {
-  const {
-    views,
-    isLoading: viewsIsLoading,
-    isError: viewsIsError,
-  } = usePostViews(slug)
-  const {
-    likes,
-    isLoading: likesIsLoading,
-    isError: likesIsError,
-  } = usePostLikes(slug)
+  const { views, isLoading: viewsIsLoading, isError: viewsIsError } =
+    usePostViews(slug)
+  const { likes, isLoading: likesIsLoading, isError: likesIsError } =
+    usePostLikes(slug)
 
   return (
     <>
-      <div className="text-rose-100/30">&middot;</div>
-
+      <Dot />
       <div>
         {viewsIsError || viewsIsLoading ? (
           <LoadingDots />
@@ -31,8 +26,7 @@ const Metrics = ({ slug }: { slug: string }) => {
         views
       </div>
 
-      <div className="text-rose-100/30">&middot;</div>
-
+      <Dot />
       <div>
         {likesIsError || likesIsLoading ? (
           <LoadingDots />

@@ -19,28 +19,17 @@ import { useIntersection } from "react-use"
 
 export const getStaticPaths = () => {
   const paths = [
-    // /
     { params: { filter: [] } },
-    // /projects
     { params: { filter: ["projects"] } },
-    // /blog
     { params: { filter: ["blog"] } },
-    // /me
-    { params: { filter: ["me"] } },
-    // /tag/:tag
     ...allTagSlugs.map((tag) => ({ params: { filter: ["tag", tag] } })),
-    // /videos/tag/:tag
     ...allTagSlugs.map((tag) => ({
       params: { filter: ["projects", "tag", tag] },
     })),
-    // /blog/tag/:tag
     ...allTagSlugs.map((tag) => ({ params: { filter: ["blog", "tag", tag] } })),
   ]
 
-  return {
-    paths,
-    fallback: false,
-  }
+  return { paths, fallback: false }
 }
 
 export const getStaticProps: GetStaticProps<{
@@ -61,20 +50,16 @@ export const getStaticProps: GetStaticProps<{
 
   if (params?.filter && Array.isArray(params.filter)) {
     currentFilters = {}
-
     let tag: Tag["slug"] | undefined
 
     if (params.filter[0] === "projects") {
       posts = posts.filter((p) => p.type === "Project")
-
       currentFilters.type = "project"
-
       if (params.filter[1] === "tag" && params.filter[2]) {
         tag = params.filter[2] as Tag["slug"]
       }
     } else if (params.filter[0] === "blog") {
       posts = posts.filter((p) => p.type === "Post")
-
       currentFilters.type = "blog"
       if (params.filter[1] === "tag" && params.filter[2]) {
         tag = params.filter[2] as Tag["slug"]
@@ -115,7 +100,7 @@ export default function Home({
           <div ref={intersectionRef}>
             {!currentFilters ? (
               <div
-                className={cx("transition duration-300", {
+                className={cx("transition duration-base", {
                   "opacity-0": showNav,
                   "opacity-100": !showNav,
                 })}
@@ -124,28 +109,30 @@ export default function Home({
                   <ProfileImage size="large" src="https://github.com/sowmenappd.png" />
 
                   <div>
-                    <h1 className="text-3xl font-medium text-rose-100/80 sm:text-4xl">
+                    {/* display face + tokenized ink */}
+                    <h1 className="font-display text-h1 text-ink-primary">
                       Sowmen Rahman
                     </h1>
-                    <h2 className="align-middle text-lg leading-6 text-rose-100/50">
-                      <span className="hidden sm:inline">
-                        Engineering
-                      </span>
-                      <span
-                        className="inline sm:hidden"
-                        title="Senior Software Engineer"
-                      >
+                    {/* mono is the new metadata voice; accent.warm for the company */}
+                    <h2 className="mt-1 align-middle font-mono text-meta text-ink-secondary">
+                      <span className="hidden sm:inline">Engineering</span>
+                      <span className="inline sm:hidden" title="Senior Software Engineer">
                         RnD
                       </span>{" "}
                       at{" "}
-                      <span className="font-medium text-rose-100/70">
-                        <a target="_blank" href="https://elmosoftware.com.au/">ELMO Software</a>
-                      </span>
+                      <a
+                        target="_blank"
+                        rel="noreferrer"
+                        href="https://elmosoftware.com.au/"
+                        className="font-medium text-accent-warm"
+                      >
+                        ELMO Software
+                      </a>
                     </h2>
                   </div>
                 </div>
 
-                <p className="mt-7 text-xl text-rose-100/90 sm:mt-9">
+                <p className="mt-7 text-body-lg text-ink-primary sm:mt-9">
                   {seo.description}
                 </p>
 
@@ -163,22 +150,19 @@ export default function Home({
             )}
           >
             {currentFilters ? (
-              <>
-                <div className="flex space-x-2">
-                  {currentFilters.tag ? (
-                    <div className="rounded-full border border-rose-100/5 py-0.5 px-2 text-rose-100/90">
-                      {currentFilters.tag}
-                    </div>
-                  ) : null}
-                </div>
-              </>
+              <div className="flex space-x-2">
+                {currentFilters.tag ? (
+                  <div className="rounded-full border border-accent-cool/40 py-0.5 px-3 font-mono text-meta text-accent-cool">
+                    {currentFilters.tag}
+                  </div>
+                ) : null}
+              </div>
             ) : null}
 
             {posts.map((post) => {
               if (post.type === "Project") {
                 return <ProjectPostPreview key={post.title} {...post} />
               }
-
               if (post.type === "Post") {
                 return <BlogPostPreview key={post.slug} {...post} />
               }

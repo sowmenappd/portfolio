@@ -1,3 +1,66 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────
+   Direction 1a — "Aurora" design tokens
+   Values are raw R G B triples so Tailwind's <alpha-value> works.
+   Dark is the default; next-themes removes `.dark` for light.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Aurora type system — referenced by tailwind.config.js fontFamily slots */
+  --font-bricolage: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-hanken: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-jetbrains: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  /* Type — loaded via <link> in _app.tsx, mapped to Tailwind's font slots */
+  --font-bricolage: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-hanken: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-jetbrains: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root,
+.dark {
+  --surface-base: 14 11 20;      /* #0E0B14 */
+  --surface-raised: 23 19 31;    /* #17131F */
+  --surface-overlay: 32 26 43;   /* #201A2B */
+  --ink: 244 238 244;            /* #F4EEF4 — used at .92/.70/.48 */
+  --accent-warm: 255 122 156;    /* #FF7A9C */
+  --accent-cool: 158 140 255;    /* #9E8CFF */
+  --border: 255 255 255;         /* used low-alpha, e.g. border-border/[0.07] */
+}
+
+:root:not(.dark) {
+  --surface-base: 247 242 234;   /* #F7F2EA */
+  --surface-raised: 255 255 255; /* #FFFFFF */
+  --surface-overlay: 255 253 249;/* #FFFDF9 */
+  --ink: 35 26 20;               /* #231A14 */
+  --accent-warm: 196 65 95;      /* #C4415F — darkened for AA on paper */
+  --accent-cool: 83 72 199;      /* #5348C7 */
+  --border: 35 26 20;
+}
+
+body {
+  background-color: rgb(var(--surface-base));
+  color: rgb(var(--ink) / 0.92);
+}
+
+/* CSS-only ambient gradient — replaces the hotlinked Cloudinary JPG + preload hack */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 500px at 80% -10%, rgb(var(--accent-cool) / 0.16), transparent 55%),
+    radial-gradient(700px 500px at 5% 8%, rgb(var(--accent-warm) / 0.12), transparent 50%);
+}
+
+::selection {
+  background: rgb(var(--accent-warm) / 0.85);
+  color: rgb(var(--surface-base));
+}
